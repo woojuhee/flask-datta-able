@@ -12,9 +12,15 @@ COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
+# install nginx
+RUN apt update
+RUN apt install -y nginx
+
 COPY env.sample .env
 
 COPY . .
+
+#COPY ./nginx /etc/nginx/conf.d
 
 RUN flask db init
 RUN flask db migrate
